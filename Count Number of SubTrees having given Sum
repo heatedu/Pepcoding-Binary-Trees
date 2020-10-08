@@ -1,0 +1,20 @@
+Ques: https://www.geeksforgeeks.org/count-subtress-sum-given-value-x/
+
+mysoln: 
+
+int helper(Node*root,int x,int &cnt)
+{
+    if(root==NULL)
+    return 0;
+    int ls=0,rs=0;
+    ls+=helper(root->left,x,cnt);
+    rs+=helper(root->right,x,cnt);
+    if(root->data+ls+rs==x)cnt++;
+    return ls+rs+root->data;
+}
+int countSubtreesWithSumX(Node* root, int x)
+{
+	int cnt=0;
+	helper(root,x,cnt);
+	return cnt;
+}
