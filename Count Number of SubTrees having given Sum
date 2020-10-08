@@ -18,3 +18,5 @@ int countSubtreesWithSumX(Node* root, int x)
 	helper(root,x,cnt);
 	return cnt;
 }
+
+Time:O(n)
