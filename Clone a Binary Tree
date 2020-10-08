@@ -1,0 +1,50 @@
+
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child 
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+    Node *random;
+};
+*/
+
+//this function is for duplicating all the left and right node of root
+//after this time we will be creating a tree in which all have the left and right pointer in duplicate tree except random pointer
+Node* duplicateleftright(Node*root,unordered_map<Node*,Node*>&m)
+{
+    if(root==NULL)
+    return NULL;
+    Node*newNode=new Node(root->data);
+    m[root]=newNode;//map contain yh krega jese koi node hai original m th uska address k corresponding dusre node ko map m daalega jiski value th same
+    //hogi but vh duplicate tree ka hga hence uska address alag hga
+    newNode->left=duplicateleftright(root->left,m);
+    newNode->right=duplicateleftright(root->right,m);
+    return newNode;
+}
+//in this function we assign the randoms to each node in the duplicate tree
+void duplicaterandom(Node*root,Node*newTree,unordered_map<Node*,Node*>m)
+{
+    if(newTree==NULL)
+     return;
+//yhaa root ko base case nhilnge newTree ko lnge kyuki agar root null hota th cloneTree se hi null krke return ho jata
+   
+    newTree->random=m[root->random];//newtree k random m daalnge th vhi node jiska data original tree k random se milta h lkin uska address hume milega map m kyuki map m data th same hi h dono ka bss address 
+    //alag h key m m jo h vh h original ka address and value vala duplicate ka
+    duplicaterandom(root->left,newTree->left,m);
+    duplicaterandom(root->right,newTree->right,m);
+}
+
+//ORIGINAL FUNCTION GIVEN
+
+
+Node* cloneTree(Node* root)
+{
+   if(root==NULL)
+   return NULL;
+   unordered_map<Node*,Node*>m;
+   Node*newTree=duplicateleftright(root,m);
+   duplicaterandom(root,newTree,m);
+   return newTree;
+}
