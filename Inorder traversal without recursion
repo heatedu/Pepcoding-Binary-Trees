@@ -1,0 +1,28 @@
+void inorder(Node*root)
+{
+Node*curr=root;
+  while(curr!=NULL || s.empty()==false)
+{
+while(curr!=NULL) //in this case we have to traverse till the leftmost node pushing each node in the stack.
+{
+s.push(curr);
+curr=curr->left;
+}
+//we have reached the leftmost stack and now curr=NULL
+int x=s.top();
+cout<<x<<" ";
+s.pop();
+curr=curr->right;
+//now again our curr is 5 and its procedure is same as that of 1;
+}
+}
+
+/* Constructed binary tree is 
+              1 
+            /   \ 
+          2      3 
+        /  \    /  \
+      4     5  6    7
+      /\
+     8  9
+    */
