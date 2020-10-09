@@ -1,0 +1,81 @@
+1 Stack-based:
+Stack-based:
+
+public class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null)
+            return res;
+        Stack<TreeNode> s = new Stack<>();
+        s.push(root);
+        while (!s.isEmpty()) {
+            TreeNode cur = s.pop();
+            res.add(cur.val);
+            if (cur.right != null)
+                s.push(cur.right);
+            if (cur.left != null)
+                s.push(cur.left);
+        }
+        return res;
+    }
+}
+Push right before left so that, due to the property of a stack, left is processed before right; This is the logic that echoes most throughout this problem's discussions, and is very easy to understand.
+
+2 Stack-based:
+Slight changes.
+
+public class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null)
+            return res;
+        Stack<TreeNode> s = new Stack<>();
+        s.push(root);
+        while (!s.isEmpty()) {
+            TreeNode cur = s.pop();
+            while (cur != null) {
+                res.add(cur.val);
+                s.push(cur.right);
+                cur = cur.left;
+            }
+        }
+        return res;
+    }
+}
+This algorithm employs a technique I like to call "push horizontal" that is frequently used in the implementation of stack-based InOrder and PostOrder algorithm. Since PreOrder logic is generally easier than the other two, this approach is not as much used as that of solution 1. Note that here we push cur.right rather than cur. The null cases will handle themselves by the inner while loop.
+
+3 Morris Traversal
+public class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null)
+            return res;
+        TreeNode cur = root;
+        while (cur != null) {
+            if (cur.left == null) {
+                res.add(cur.val);
+                cur = cur.right;
+            } else {
+                TreeNode prev = cur.left;
+                while (prev.right != null && prev.right != cur)
+                    prev = prev.right;
+                if (prev.right == null) {
+                    res.add(cur.val);
+                    prev.right = cur;
+                    cur = cur.left;
+                } else {
+                    prev.right = null;
+                    cur = cur.right;
+                }
+            }
+        }
+        return res;
+    }
+}
+A good explanation here gives implementation of Morris Traversal InOrder algorithm. The PreOrder algorithm can be achieved by tweaking the code very slightly: rather than visit cur when we restore the tree(which is generally the second time we are at node cur), we visit it the first time we encounter it, which is when we have to modify.
+
+The space complexity for Morris Traversal is O(1) obviously. The time complexity is actually O(N) which is a little more subtle. The outer while loop is executed O(N) iterations obviously, depending on the position of root in the InOrder serialization of the tree. In each such iteration, we have to find the left predecessor for cur, which is the costly part. Trivially you would think that gives us O(NlgN) per height of the tree. But if you think aggregately, you will see these:
+
+For each node, we do find left predecessor on it only twice.
+Throughout these two find left predecessor inner while loops, each edge of the tree get traversed at most twice.
+You might have to draw a tree and doodle some trace to convince yourself this. Since a tree has N-1 edges, with N as the number of nodes, we know that the time complexity is O(N).
