@@ -1,0 +1,31 @@
+void morrisTraversalPreorder(node* root)  
+{
+    if(root==NULL)
+        return ;
+    while(root)
+    {
+      if(root->left==NULL)//mtlb left se th hume koi kaam hi nhi h th root ko print kro aur root=root->right
+      {
+        cout<<root->data;
+        root=root->right;
+      }
+        else
+        {
+            //ab root->left ko bhi traverse krna h 
+            Node*curr=root->left;
+            while(curr->right!=NULL and curr->right!=root)
+                curr=curr->right;
+            if(curr->right==NULL)
+            {
+                cout<<root->data;
+                curr->right=root;//yhaa link krdia
+                root=root->left;
+            }
+            else if(curr->right==root)
+            {
+                curr->right=NULL;//ab phle se hi link h th link todkr aage chle jaao root p
+                root=root->right;
+            }
+        }
+    }
+}
