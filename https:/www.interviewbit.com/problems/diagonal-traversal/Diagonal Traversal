@@ -1,0 +1,24 @@
+void helper(TreeNode*root,int n,map<int,vector<int>>&m)
+{
+    if(root==NULL)
+    return;
+    m[n].push_back(root->val);
+    helper(root->left,n+1,m);
+    helper(root->right,n,m);
+}
+ 
+vector<int> Solution::solve(TreeNode* root){
+    vector<int>v;
+    if(root==NULL)
+    return v;
+    map<int,vector<int>>m;
+    helper(root,0,m); 
+    for(auto it=m.begin();it!=m.end();it++)
+    {
+       for(auto itr=it->second.begin();itr!=it->second.end();itr++)
+       {
+           v.push_back(*itr);
+       }
+    }
+    return v;
+}
