@@ -1,0 +1,26 @@
+void printSpecificLevelOrder(Node *root) 
+{
+    if(root==NULL)
+        return;
+    cout<<root->data;
+    if(root->left)
+    q.push(root->left);
+    if(root->right)
+    q.push(root->right);
+    while(q.empty())
+    {
+        Node*f1=q.front();
+        q.pop();
+        Node*f2=q.front();
+        q.pop();
+        cout<<f1->data<<" "<<f2->data<<" ";
+        if(f1->left)
+        q.push(f1->left);
+        if(f2->right)
+        q.push(f2->right);
+        if(f1->right)
+        q.push(f1->right);
+        if(f2->left)
+        q.push(f2->left);
+    }
+}
