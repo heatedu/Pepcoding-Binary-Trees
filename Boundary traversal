@@ -1,0 +1,51 @@
+void printboundaryleft(Node*root,vector<int>&v)
+{
+    if(root==NULL)
+    return ;
+    if(root->left)
+    {
+        v.push_back(root->data);
+        printboundaryleft(root->left,v);
+    }
+    else if(root->right)
+    {
+        v.push_back(root->data);
+        printboundaryleft(root->right,v);
+    }
+}
+void printleaf(Node*root,vector<int>&v)
+{
+    if(root==NULL)
+    return;
+    if(root->left==NULL and root->right==NULL)
+    v.push_back(root->data);
+    printleaf(root->left,v);
+    printleaf(root->right,v);
+}
+void printboundaryright(Node*root,vector<int>&v)
+{
+    if(root==NULL)
+    return;
+    if(root->right)
+    {
+        printboundaryright(root->right,v);
+        v.push_back(root->data);
+    }
+    else if(root->left)
+    {
+        printboundaryright(root->left,v);
+        v.push_back(root->data);
+    }
+}
+vector <int> printBoundary(Node *root)
+{
+    vector<int>v;
+    if(root==NULL)
+    return v;
+    v.push_back(root->data);
+    printboundaryleft(root->left,v);
+    printleaf(root->left,v);
+    printleaf(root->right,v);
+    printboundaryright(root->right,v);
+    return v;
+}
