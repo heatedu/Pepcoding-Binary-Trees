@@ -1,0 +1,13 @@
+Node*construct(int pre[],char preLN[],int i(initially 0),int n)
+{
+    if(i>=n)
+        return NULL;
+    if(preNL[i]=='L')
+    {
+        Node*root=new Node(pre[i++]);
+        return root;
+    }
+    Node*root=new Node(pre[i++]);
+    root->left=construct(pre,preLN,i,n);
+    root->right=construct(pre,preLN,i,n);
+}
