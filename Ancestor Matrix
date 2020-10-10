@@ -1,0 +1,23 @@
+void ancestorMatrixRec(Node *root, vector<int> &anc) 
+{
+    if(root==NULL)
+        return;
+    int data=root->data;
+    for(int i=0;i<anc.size();i++)
+        m[anc[i]][data]=1;
+    anc.push_back(data);
+    ancestorMatrixRec(root->left,anc);
+    ancestorMatrixRec(root->right,anc);
+    anc.pop_back();
+}
+
+
+
+
+
+
+
+
+
+The idea is to traverse the tree. While traversing, keep track of ancestors in an array. When we visit a node, we add it to ancestor array and consider corresponding row in adjacency matrix.
+We mark all ancestors in its row as 1. Once a node and all its children are processed, we remove the node from ancestor array.
