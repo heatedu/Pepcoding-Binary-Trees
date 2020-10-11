@@ -1,0 +1,28 @@
+void created(int i,int parent[],Node* &root,Node*create[])
+{
+   if(create[i]!=NULL)
+   return;
+   create[i]=new Node(i);
+   if(parent[i]==-1)
+   {
+       root=create[i];
+       return;
+   }
+   if(create[parent[i]]==NULL)
+   created(parent[i],parent,root,create);//agar create[i] nhi bna hua th jao phle bnao kyuki tbhi t uske left and right m assign krnge
+  Node*p=create[parent[i]];
+   if(p->left==NULL)
+   p->left=create[i];
+   else
+   p->right=create[i];
+}
+Node *createTree(int parent[], int n)
+{
+  Node*create[n];
+  for(int i=0;i<n;i++)
+  create[i]=NULL;
+  Node*root=NULL;
+  for(int i=0;i<n;i++)
+  created(i,parent,root,create);
+  return root;
+}
