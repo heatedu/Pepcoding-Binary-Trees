@@ -1,0 +1,42 @@
+// Return the number of nodes of subtree having 
+// node as a root. 
+int dfs(vector<int> tree[N], int visit[N], 
+                      int *ans, int node) 
+{ 
+    int num = 0, temp = 0; 
+  
+    // Mark node as visited. 
+    visit[node] = 1; 
+  
+    // Traverse the adjacency list to find non- 
+    // visited node. 
+    for (int i = 0; i < tree[node].size(); i++) 
+    { 
+        if (visit[tree[node][i]] == 0) 
+        { 
+            // Finding number of nodes of the subtree 
+            // of a subtree. 
+            temp = dfs(tree, visit, ans, tree[node][i]); 
+  
+            // If nodes are even, increment number of 
+            // edges to removed. 
+            // Else leave the node as child of subtree. 
+            (temp%2)?(num += temp):((*ans)++); 
+        } 
+    } 
+  
+    return num+1; 
+} 
+  
+// Return the maxium number of edge to remove 
+// to make forest. 
+int minEdge(vector<int> tree[N], int n) 
+{ 
+    int visit[n+2]; 
+    int ans = 0; 
+    memset(visit, 0, sizeof visit); 
+  
+    dfs(tree, visit, &ans, 1); 
+  
+    return ans; 
+}
