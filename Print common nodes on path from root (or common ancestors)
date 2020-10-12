@@ -1,0 +1,31 @@
+1.Find the LCA of given two nodes.
+2.Print all ancestors of the LCA as done in this post, also print the LCA.
+
+for printning all ancestors
+void helper(struct Node *root,int target,vector<int>&v,int &flag)
+{
+    if(root==NULL)
+    return;
+    if(root->data==target)
+    {
+        flag=1;
+        return;
+    }
+    if(!flag)
+     v.push_back(root->data);
+     helper(root->left,target,v,flag);
+     helper(root->right,target,v,flag);
+     if(!flag)
+     v.pop_back();
+}
+// Function should return all the ancestor of the target node
+vector<int> Ancestors(struct Node *root, int target)
+{
+     vector<int>v;
+     if(root==NULL)
+     return v;
+     int flag=0;
+      helper(root,target,v,flag);
+      reverse(v.begin(),v.end());
+       return v;
+}
