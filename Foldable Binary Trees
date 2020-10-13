@@ -1,0 +1,18 @@
+bool helper(Node*a,Node*b)
+{
+    if(a==NULL and b==NULL)
+    return true;
+    if(a==NULL||b==NULL)
+    return false;
+    return helper(a->left,b->right) and helper(a->right,b->left);
+}
+bool IsFoldable(Node* root)
+{
+    if(root==NULL)
+    return true;
+    return helper(root,root);
+}
+
+//The approach is same as check wheteher trees are mirror or not the only diiff is we are not looking for data to be same here unlike the mirror ques
+
+ref:https://www.geeksforgeeks.org/check-if-two-trees-are-mirror/
