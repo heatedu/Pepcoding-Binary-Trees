@@ -1,0 +1,36 @@
+Node* getNextRight(Node* node){
+    node = node->nextRight;
+    while(node!=NULL){
+    if(node->left!=NULL){
+        return node->left;
+    }
+    if(node->right!=NULL){
+        return node->right;
+    }
+    node=node->nextRight;
+    }
+    return NULL;
+}
+
+
+void connect(Node *p)
+{
+   if(!p){
+       return;
+   }
+   if(p->left!=NULL){
+       if(p->right!=NULL){
+           p->left->nextRight = p->right;
+       }
+       else{
+           p->left->nextRight = getNextRight(p);
+       }
+   }
+   if(p->right!=NULL){
+       p->right->nextRight = getNextRight(p);
+   }
+   if(p->left)
+   connect(p->left);
+   if(p->right)
+   connect(p->right);
+}
