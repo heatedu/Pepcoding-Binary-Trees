@@ -1,0 +1,12 @@
+void doubleTree(node*root)
+{
+    if(root==NULL)
+        return;
+    node*temp;
+    doubleTree(root->left);
+    doubleTree(root->right);
+    temp=newNode(root->data);
+    node*temp2=root->left;
+    root->left=temp;
+    temp->left=temp2;
+}
