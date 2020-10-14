@@ -1,0 +1,39 @@
+class Pair//yhaa Pair return kraega ek th node aur uska level 
+{
+  public:
+    TreeNode*node;
+    int level;
+};
+Pair helper(TreeNode*root)
+{
+    if(root==NULL)
+    {
+        Pair ans;
+        ans.node=NULL;
+        ans.level=0;//ab agr neeche se upr level cnt kre th leaf ka level 1 aur uske neeche ka level 0
+        return ans;
+    }
+   Pair leftans=helper(root->left);
+   Pair rightans=helper(root->right);
+   Pair ans; 
+    if(leftans.level>=rightans.level)  //ab agar leftans ki level jada h th vha se hi ans aaega agr same h th bhi vha se aaega kyuki leftmost chahie
+    {
+        if(leftans.level>0)
+        ans.node=leftans.node;
+        else// jb hum leaf node p h th left aur right se th ans aaya h zero th leaf node hi return krnge
+            ans.node=root;
+    }
+    else if(rightans.level>leftans.level)
+    {
+        ans.node=rightans.node;
+    }
+    ans.level=1+max(rightans.level,leftans.level);
+    return  ans;
+}
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        TreeNode*res=helper(root).node;
+        return res->val;
+    }
+};
