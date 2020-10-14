@@ -1,0 +1,21 @@
+int helper(TreeNode*root,int &res)//return type yaad rkhna baki th ho jaega
+{
+    if(root==NULL)
+        return 0;
+    int l=helper(root->left,res);
+    int r=helper(root->right,res);
+    int max_single=max(root->val,root->val+max(l,r));
+    int max_top=max(max_single,root->val+l+r);
+    res=max(res,max_top);
+    return max_single;
+}
+class Solution {
+public:
+    int maxPathSum(TreeNode* root) {
+         int res=INT_MIN;
+        helper(root,res);
+        return res;
+    }
+};
+//dry run for this case
+[10,2,10,20,1,null,-25,null,null,null,null,3,4] acc to leetcode
