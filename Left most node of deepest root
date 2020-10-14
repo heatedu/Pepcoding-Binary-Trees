@@ -37,3 +37,7 @@ public:
         return res->val;
     }
 };
+
+//dry run on this input or see second example of leetcode
+[1,2,3,4,null,5,6,null,null,7]
+input is taken acc to leetcode
