@@ -1,0 +1,17 @@
+void helper(Node*a,Node*b,int level)
+{
+    if(a==NULL||b==NULL)
+    return;
+    if(level%2==0)
+    {
+        int x=a->data;
+        a->data=b->data;
+        b->data=x;
+    }
+    helper(a->left,b->right,level+1);//left ko right se
+    helper(a->right,b->left,level+1);//right ko left se
+}
+void reverseAlternate(Node *root)
+{
+    helper(root->left,root->right,0);
+}
