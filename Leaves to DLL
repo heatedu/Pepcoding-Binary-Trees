@@ -1,0 +1,37 @@
+Node*leafDelete(Node*root) 
+{ 
+    if (root == NULL) 
+        return NULL; 
+    if (root->left == NULL && root->right == NULL) { 
+        return NULL; 
+    } 
+    root->left = leafDelete(root->left); 
+    root->right = leafDelete(root->right); 
+  
+    return root; 
+} 
+void helper(Node*root,Node*&head,Node*&tail)
+{
+    if(root==NULL)
+    return;
+    helper(root->left,head,tail);
+    if(head=NULL)
+    {
+        head=root;
+        tail=root;
+    }
+    else if(root->left==NULL and root->right==NULL and head!=NULL) 
+    {
+        root->left=tail;
+        tail->right=root;
+        tail=root;
+    }
+    helper(root->right,head,tail);
+}
+Node * convertToDLL(Node *root){
+    Node*head=NULL;
+    Node*tail=NULL;
+    helper(root,head,tail);
+    leafDelete(root);
+    return head;
+}
