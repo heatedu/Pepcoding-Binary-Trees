@@ -1,0 +1,13 @@
+Node *removeShortPathNodesUtil(Node *root, int level, int k) //level initilally is 1
+{
+  if (root == NULL) 
+        return NULL; 
+    root->left = removeShortPathNodesUtil(root->left, level + 1, k); 
+    root->right = removeShortPathNodesUtil(root->right, level + 1, k); 
+    if (root->left == NULL && root->right == NULL && level < k) 
+    { 
+        delete root; 
+        return NULL; 
+    } 
+    return root; 
+}
