@@ -1,0 +1,27 @@
+#define ll unsigned long long
+
+//isme humne har level ka leftmost node ki id th map m store krli ab tree ko traverse kia jiski bhi id-m[level] max aaega vhi ans h kyuki m[level] m uss level ka leftmost h jiski
+//id uss level m bakio se km hgi aur width nikalne k liye curr m store krate ja rhe h ans ko curr=id-m[level]+1 
+
+
+ll dfs(TreeNode*root,long long level,ll id,map<ll,ll>&m)
+{
+    if(root==NULL)
+        return 0;
+    if(m.find(level)==m.end())
+        m[level]=id;
+    ll curr=id-m[level]+1;
+    ll l=dfs(root->left,level+1,2*id,m);
+    ll r=dfs(root->right,level+1,2*id+1,m);
+    return max(curr,max(l,r));
+}
+class Solution {
+public:
+    ll widthOfBinaryTree(TreeNode* root) {
+       map<ll,ll>m;
+        ll level=0;
+        ll id=1;
+        ll ans=dfs(root,0,1,m);
+        return ans;
+    }
+};
