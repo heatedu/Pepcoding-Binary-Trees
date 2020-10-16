@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+struct node {
+	int data;
+	node *left,*right;
+};
+ 
+node* newNode(int val) {
+	node* nd = new node;
+	nd->data = val;
+	nd->left = nd->right = NULL;
+	return nd;
+}
+ 
+ 
+void inorder(node* root) {
+	if(!root) return;
+	inorder(root->left);
+	cout<<root->data<<" ";
+	inorder(root->right);
+}
+////****LOGICAL CODE STARTS
+//isme ek baar m puri diagonal traverse kr rhe h aur jo left m aat ajaa rha h usko dusri traversal k liye quue m daalte jaa rhe h
+void diagonalsum(node*root)
+{
+   queue<node*>q;
+   q.push(root);
+    int l=1;
+   while(!q.empty())
+   {
+       int p=q.size(),sum=0;;
+       while(p--)
+       {
+          node*front=q.front();
+          q.pop();
+          while(front)
+          {
+              sum+=front->data;
+              if(front->left)
+                  q.push(front->left);
+              front=front->right;
+          }
+       }
+       cout<<"Diagonal Level: "<<l<<" Sum: "<<sum<<endl;
+		l++;
+   }
+}
+******///////ENDS
+int main()
+{
+	node* root = newNode(1);
+	root->left = newNode(2); 
+    root->right = newNode(3); 
+    root->left->left = newNode(9); 
+    root->left->right = newNode(6); 
+    root->right->left = newNode(4); 
+    root->right->right = newNode(5); 
+    root->right->left->right = newNode(7); 
+    root->right->left->left = newNode(12); 
+    root->left->right->left = newNode(11); 
+    root->left->left->right = newNode(10); 
+ 
+    diagonalsum(root);
+ 
+ 
+ 
+	return 0;
+}
