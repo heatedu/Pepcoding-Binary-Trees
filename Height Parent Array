@@ -1,0 +1,49 @@
+An efficient solution can solve the above problem in O(n) time. The idea is to first calculate depth of every node and store in an array depth[]. Once we have depths of all nodes, we return maximum of all depths.
+1) Find depth of all nodes and fill in an auxiliary array depth[].
+2) Return maximum value in depth[].
+
+void fillDepth(int parent[], int i, int depth[]) 
+{ 
+    // If depth[i] is already filled 
+    if (depth[i]) 
+        return; 
+  
+    // If node at index i is root 
+    if (parent[i] == -1) 
+    { 
+        depth[i] = 1; 
+        return; 
+    } 
+  
+    // If depth of parent is not evaluated before, then evaluate 
+    // depth of parent first 
+    if (depth[parent[i]] == 0) 
+        fillDepth(parent, parent[i], depth); 
+  
+    // Depth of this node is depth of parent plus 1 
+    depth[i] = depth[parent[i]]  + 1; 
+} 
+  
+// This function returns height of binary tree represented by 
+// parent array 
+int findHeight(int parent[], int n) 
+{ 
+    // Create an array to store depth of all nodes/ and 
+    // initialize depth of every node as 0 (an invalid 
+    // value). Depth of root is 1 
+    int depth[n]; 
+    for (int i = 0; i < n; i++) 
+        depth[i] = 0; 
+  
+    // fill depth of all nodes 
+    for (int i = 0; i < n; i++) 
+        fillDepth(parent, i, depth); 
+  
+    // The height of binary tree is maximum of all depths. 
+    // Find the maximum value in depth[] and assign it to ht. 
+    int ht = depth[0]; 
+    for (int i=1; i<n; i++) 
+        if (ht < depth[i]) 
+            ht = depth[i]; 
+    return ht; 
+}
