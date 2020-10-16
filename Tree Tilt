@@ -1,0 +1,17 @@
+int helper(TreeNode*root,int&sum)
+{
+    if(root==NULL)
+        return 0;
+    int l=helper(root->left,sum);
+    int r=helper(root->right,sum);
+    sum+=abs(l-r);
+    return root->val+l+r;
+}
+class Solution {
+public:
+    int findTilt(TreeNode* root) {
+        int sum=0;
+        helper(root,sum);
+        return sum;
+    }
+};
