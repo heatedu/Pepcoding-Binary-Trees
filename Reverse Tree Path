@@ -1,0 +1,23 @@
+Node*reverse(Node*root,map<int,int>&m,int x,int &currpos,int level)
+{
+    if(root==NULL)
+        return NULL;
+    if(root->data==x)
+    {
+        m[level]=x;
+        //yhaa hum jese jese level p phnchte jaa rhe h map ko fill krte  jaa rhe h ab jese hi data mil gya th humne curr ko rkha h map k starting m th fr //root->data=m[curr] assign kr rhe hn kyuki curr kr rha h starting ko point root h uss node pr jiski value x h th bss ese hi ulta fill hota jeaga 
+        root->data=m[currpos];
+        currpos++;
+        return root;
+    }
+    m[level]=root->data;
+    Node*left=reverse(root,m,x,currpos,level+1);
+    if(left==NULL)
+        Node*right=reverse(root,m,x,currpos,level+1);
+    if(left||right)
+    {
+        root->data=m[currpos++];
+        return (left)?left:right;
+    }
+    
+}
