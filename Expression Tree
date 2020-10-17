@@ -1,0 +1,52 @@
+ For constructing an expression tree we use a stack. We loop through input expression and do the following for every character. 
+
+1.If a character is an operand push that into the stack
+2.If a character is an operator pop two values from the stack make them its child and push the current node again. 
+In the end, the only element of the stack will be the root of an expression tree
+
+bool isOperator(char c)
+{
+    if (c == '+' || c == '-' ||
+            c == '*' || c == '/' ||
+            c == '^')
+        return true;
+    return false;
+}
+
+et* constructTree(char postfix[])
+{
+    stack<et *> st;
+    et *t, *t1, *t2;
+    for (int i=0; i<strlen(postfix); i++)
+    {
+        if (!isOperator(postfix[i]))
+        {
+            t = newNode(postfix[i]);
+            st.push(t);
+        }
+        else 
+        {
+            t = newNode(postfix[i]);
+ 
+            // Pop two top nodes
+            t1 = st.top(); // Store top
+            st.pop();      // Remove top
+            t2 = st.top();
+            st.pop();
+ 
+            //  make them children
+            t->right = t1;
+            t->left = t2;
+ 
+            // Add this subexpression to stack
+            st.push(t);
+        }
+    }
+ 
+    //  only element will be root of expression
+    // tree
+    t = st.top();
+    st.pop();
+ 
+    return t;
+}
