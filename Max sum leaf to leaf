@@ -1,0 +1,22 @@
+int helper(Node*root,int &res)
+{
+    if(root==NULL)
+    return 0;
+    if(root->left==NULL and root->right==NULL)
+    return root->data;
+    int ls=helper(root->left,res);
+    int rs=helper(root->right,res);
+    if(root->left and root->right)//agar left and right hai tbhi update krna h bs res ko kyuki agar ek bhi nhi h mtlb vh leaf node nhi h 
+    {
+    res=max(res,root->data+ls+rs);
+    return root->data+max(ls,rs);
+    }
+return (!root->left)? rs + root->data: ls + root->data; ///yhaa p root->data+max(ls,rs); yh return islie nhi kr skte ki maanlo agr left se negative ans 
+//aaya aur right vala child nhi h th vh 0 return krega th root->dta+0 nhi krna vh glt h root->data+left or root->data+right krna h jese yh example h 1 8 6 -7 -10 -9
+}
+int maxPathSum(Node* root)
+{ 
+    int res=INT_MIN;
+    helper(root,res);
+    return res;
+}
