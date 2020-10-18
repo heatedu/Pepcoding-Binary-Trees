@@ -1,0 +1,15 @@
+int findTreeHeight(Node* root)
+{
+	if(root==NULL)
+	return 0;
+	if(root->left and root->left->right==root and root->right and root->right->left==root)
+	return 1;
+	int lh=findTreeHeight(root->left);
+	int rh=findTreeHeight(root->right);
+	return 1+max(lh,rh);
+}
+
+/*The idea is to follow similar approach as we do for finding height of a normal binary tree. We recursively calculate height of left and right subtrees of a node 
+and assign height to the node as max of the heights of two children plus 1. But left and right child of a leaf node are null for normal binary trees. 
+But, here leaf node is a circular doubly linked list node. So for a node to be a leaf node, 
+we check if node’s left’s right is pointing to the node and its right’s left is also pointing to the node itself*/
