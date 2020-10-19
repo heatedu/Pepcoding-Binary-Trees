@@ -1,0 +1,10 @@
+int helper(Node*root,int &ans)//initially ans is int_min
+{
+   if(root==NULL)
+       return 0;
+    int l=helper(root->left,ans);
+    int r=helper(root->right,ans);
+    int currsum=root->data+l+r;
+    ans=max(ans,currsum);
+    return currsum;
+}
