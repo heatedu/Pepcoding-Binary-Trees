@@ -21,7 +21,7 @@ void morrisTraversalPreorder(node* root)
                 curr->right=root;//yhaa link krdia
                 root=root->left;
             }
-            else if(curr->right==root)
+            else if(curr->right==root)//mtlb ab curr p phle se hi kaam ho chuka h th bs uske right ko NULL krdo kyuki vh originally null hi thaa aur vps root->right p kaam kro
             {
                 curr->right=NULL;//ab phle se hi link h th link todkr aage chle jaao root p
                 root=root->right;
